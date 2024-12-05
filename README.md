@@ -64,3 +64,118 @@ Example TODO File
 [-] Task in progress
 [x] Completed task
 ```
+
+Planned Features and Improvements
+----------------------------------
+
+Task Management
+---------------
+
+1. Subtasks:
+   - Allow tasks to have nested subtasks, displayed hierarchically.
+   - Example:
+
+     ```
+     [ ] Main Task
+         [ ] Subtask 1
+         [x] Subtask 2
+     ```
+
+   - New key mapping: `<Leader>s` to add a subtask under the current task.
+
+2. Task Filters:
+   - Add functionality to filter tasks by status:
+     - Show only `[ ]` (pending tasks), `[-]` (in-progress tasks), or `[x]` (completed tasks).
+   - New key mapping: `<Leader>f` to toggle between filter views.
+
+3. Sorting Tasks:
+   - Automatically sort tasks by their state:
+     - Pending tasks (`[ ]`) → In-progress tasks (`[-]`) → Completed tasks (`[x]`).
+   - Add a key mapping: `<Leader>o` to sort the tasks in the file.
+
+Visual and Syntax Enhancements
+------------------------------
+
+4. Highlight Deadlines:
+   - Support tasks with deadlines, highlighting overdue and upcoming tasks.
+   - Example:
+
+     ```
+     [ ] Task with deadline !2024-12-10
+     ```
+
+   - Overdue tasks will be highlighted in red, and upcoming deadlines in yellow.
+
+5. Custom Highlight Groups:
+   - Allow users to configure their own colors for task states via their Neovim config.
+   - Example:
+
+     ```lua
+     require('todo').setup({
+       highlights = {
+         pending = "#FF0000",
+         in_progress = "#FFFF00",
+         completed = "#00FF00",
+       },
+     })
+     ```
+
+Integration
+-----------
+
+6. Export Tasks:
+   - Add support for exporting tasks to common formats:
+     - JSON, Markdown, or plain text.
+   - New command: `:TodoExport <format>`.
+
+7. Telescope Integration:
+   - Enable searching for tasks across multiple `.todo` files using Telescope.nvim.
+   - Example:
+
+     ```
+     :Telescope todo
+     ```
+
+   - Allows filtering tasks globally or by file.
+
+Automation
+----------
+
+8. Recurring Tasks:
+   - Support recurring tasks, automatically resetting them after a certain period.
+   - Example:
+
+     ```
+     [ ] Daily report @daily
+     [ ] Weekly sync @weekly
+     ```
+
+User Experience
+---------------
+
+9. Interactive Floating Window:
+    - Provide an interactive floating window to manage tasks visually.
+    - Example:
+      - Show a list of tasks with actions like "complete," "edit," or "delete."
+    - New key mapping: `<Leader>w` to open the task manager window.
+
+10. Progress Bar:
+    - Display a progress bar in the status line showing the percentage of completed tasks in the file.
+    - Example:
+
+      ```
+      Progress: [#####-----] 50%
+      ```
+
+11. Undo Changes:
+    - Allow undoing task state changes for better control.
+    - Example:
+      - Undo the last change to a task with `<Leader>u`.
+
+Maintenance
+-----------
+
+12. Unit Tests:
+    - Add unit tests for all major functions to ensure reliability.
+
+---
