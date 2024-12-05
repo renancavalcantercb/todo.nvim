@@ -2,12 +2,14 @@ local M = {}
 
 function M.setup()
 	vim.cmd([[
-        syntax match TodoCheckbox /\- \[ \]/
-        syntax match TodoChecked /\- \[x\]/
-        syntax match TodoInProgress /\- \[-\]/
-        highlight link TodoCheckbox Todo
-        highlight link TodoChecked String
-        highlight link TodoInProgress Keyword
+        syntax enable
+        syntax match TodoPending /\[ \]/
+        syntax match TodoCompleted /\[x\]/
+        syntax match TodoInProgress /\[-\]/
+
+        highlight TodoPending ctermfg=grey guifg=#808080
+        highlight TodoCompleted ctermfg=green guifg=#00FF00
+        highlight TodoInProgress ctermfg=yellow guifg=#FFFF00
     ]])
 end
 
