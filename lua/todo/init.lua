@@ -60,6 +60,25 @@ local function count_tasks()
 	)
 end
 
+local function toggle_task_state()
+	local state_map = {
+		["[ ]"] = "[-]",
+		["[-]"] = "[x]",
+		["[x]"] = "[ ]",
+	}
+
+	local line = vim.fn.getline(".")
+	local current_state = line:match("%[.?.?%]")
+
+	if current_state and state_map[current_state] then
+		local new_line = line:gsub("%[.?.?%]", state_map[current_state])
+		vim.fn.setline(".", new_line)
+		print("Task state toggled to: " .. state_map[current_state])
+	else
+		print("No valid task format found on this line.")
+	end
+end
+
 local function create_autocommands()
 	vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 		pattern = "*.todo",
@@ -84,6 +103,7 @@ local function create_autocommands()
 				"<cmd>lua require('todo').edit_task_description()<CR>",
 				opts
 			)
+			vim.api.nvim_buf_set_keymap(0, "n", "<Leader>t", "<cmd>lua require('todo').toggle_task_state()<CR>", opts)
 		end,
 	})
 end
@@ -112,5 +132,6 @@ M.mark_in_progress = mark_in_progress
 M.reset_task = reset_task
 M.edit_task_description = edit_task_description
 M.count_tasks = count_tasks
+M.toggle_task_state = toggle_task_state
 
 return M
