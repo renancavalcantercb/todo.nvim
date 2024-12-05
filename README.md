@@ -48,8 +48,9 @@ Usage
 
 Example TODO File
 -------------------
-
+```
 [ ] Pending task 1
 [ ] Pending task 2
 [-] Task in progress
 [x] Completed task
+```
