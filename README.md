@@ -16,12 +16,12 @@ Key Mappings
 
 | Key           | Action                          |
 |---------------|---------------------------------|
-| <Leader>[     | Add a new TODO item            |
-| <Leader>x     | Check the current task         |
-| <Leader>-     | Mark the task as in progress   |
-| <Leader><Leader> | Reset the task              |
-| <Leader>]     | Edit the task description      |
-| <Leader>c     | Count all tasks in the file    |
+| ```<Leader>[```     | Add a new TODO item            |
+| ```<Leader>x```     | Check the current task         |
+| ```<Leader>-```     | Mark the task as in progress   |
+| ```<Leader><Leader>``` | Reset the task              |
+| ```<Leader>]```     | Edit the task description      |
+| ```<Leader>c```     | Count all tasks in the file    |
 
 Installation
 -------------
