@@ -27,14 +27,17 @@ Installation
 -------------
 
 1. Add todo.nvim to your plugin manager. Example using Lazy.nvim:
-   {
-       "renancavalcantercb/todo.nvim",
-       config = function()
-           require("todo").setup()
-       end,
-   }
 
-2. Reload Neovim and run :Lazy sync (if using Lazy.nvim).
+```lua
+{
+  "renancavalcantercb/todo.nvim",
+  config = function()
+  require("todo").setup()
+  end,
+}
+```
+
+3. Reload Neovim and run :Lazy sync (if using Lazy.nvim).
 
 Usage
 ------
