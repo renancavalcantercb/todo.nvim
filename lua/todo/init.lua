@@ -6,19 +6,19 @@ end
 
 local function check_task()
 	local line = vim.fn.getline(".")
-	local new_line = line:gsub("%- %[ %]", "[x]")
+	local new_line = line:gsub("%[ %]", "[x]")
 	vim.fn.setline(".", new_line)
 end
 
 local function mark_in_progress()
 	local line = vim.fn.getline(".")
-	local new_line = line:gsub("%- %[ %]", "[-]")
+	local new_line = line:gsub("%[ %]", "[-]")
 	vim.fn.setline(".", new_line)
 end
 
 local function reset_task()
 	local line = vim.fn.getline(".")
-	local new_line = line:gsub("%- %[.]", "[ ]")
+	local new_line = line:gsub("%[.]", "[ ]")
 	vim.fn.setline(".", new_line)
 end
 
