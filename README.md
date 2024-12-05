@@ -1,6 +1,10 @@
 todo.nvim - A Simple TODO Management Plugin for Neovim
 -------------------------------------------------------
 
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![GitHub repo size](https://img.shields.io/github/repo-size/renancavalcantercb/todo.nvim)
+![GitHub issues](https://img.shields.io/github/issues/renancavalcantercb/todo.nvim)
+
 Manage your tasks directly in Neovim with syntax highlighting, dynamic key mappings, and easy task management for `.todo` files.
 
 Features
@@ -177,5 +181,3 @@ Maintenance
 
 12. Unit Tests:
     - Add unit tests for all major functions to ensure reliability.
-
----
