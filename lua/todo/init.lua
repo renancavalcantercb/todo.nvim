@@ -31,14 +31,12 @@ function M.setup()
 		pattern = "*.todo",
 		callback = function()
 			vim.bo.filetype = "todo"
-			print("Tipo de arquivo .todo configurado!")
 		end,
 	})
 
 	vim.api.nvim_create_autocmd("FileType", {
 		pattern = "todo",
 		callback = function()
-			print("Tipo de arquivo .todo configurado!")
 			local opts = { noremap = true, silent = true }
 			vim.api.nvim_buf_set_keymap(0, "n", "<Leader>[", "<cmd>lua require('todo').add_todo_item()<CR>", opts)
 			vim.api.nvim_buf_set_keymap(0, "n", "<Leader>x", "<cmd>lua require('todo').check_task()<CR>", opts)
