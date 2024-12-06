@@ -35,6 +35,7 @@ Key Mappings
 | `<Leader>]`      | Edit the task description       |
 | `<Leader>c`      | Count all tasks in the file     |
 | `<Leader>t`      | Toggle the task state (`[ ]` → `[-]` → `[x]`) |
+| `<Leader>s`      | Add a subtask under the current task |
 
 Installation
 -------------
@@ -67,6 +68,8 @@ Example TODO File
 [ ] Pending task 2
 [-] Task in progress
 [x] Completed task
+    [x] Subtask 1
+    [x] Subtask 2
 ```
 
 Planned Features and Improvements
@@ -75,24 +78,12 @@ Planned Features and Improvements
 Task Management
 ---------------
 
-1. Subtasks:
-   - Allow tasks to have nested subtasks, displayed hierarchically.
-   - Example:
-
-     ```
-     [ ] Main Task
-         [ ] Subtask 1
-         [x] Subtask 2
-     ```
-
-   - New key mapping: `<Leader>s` to add a subtask under the current task.
-
-2. Task Filters:
+1. Task Filters:
    - Add functionality to filter tasks by status:
      - Show only `[ ]` (pending tasks), `[-]` (in-progress tasks), or `[x]` (completed tasks).
    - New key mapping: `<Leader>f` to toggle between filter views.
 
-3. Sorting Tasks:
+2. Sorting Tasks:
    - Automatically sort tasks by their state:
      - Pending tasks (`[ ]`) → In-progress tasks (`[-]`) → Completed tasks (`[x]`).
    - Add a key mapping: `<Leader>o` to sort the tasks in the file.
@@ -100,7 +91,7 @@ Task Management
 Visual and Syntax Enhancements
 ------------------------------
 
-4. Highlight Deadlines:
+3. Highlight Deadlines:
    - Support tasks with deadlines, highlighting overdue and upcoming tasks.
    - Example:
 
@@ -110,7 +101,7 @@ Visual and Syntax Enhancements
 
    - Overdue tasks will be highlighted in red, and upcoming deadlines in yellow.
 
-5. Custom Highlight Groups:
+4. Custom Highlight Groups:
    - Allow users to configure their own colors for task states via their Neovim config.
    - Example:
 
@@ -127,12 +118,12 @@ Visual and Syntax Enhancements
 Integration
 -----------
 
-6. Export Tasks:
+5. Export Tasks:
    - Add support for exporting tasks to common formats:
      - JSON, Markdown, or plain text.
    - New command: `:TodoExport <format>`.
 
-7. Telescope Integration:
+6. Telescope Integration:
    - Enable searching for tasks across multiple `.todo` files using Telescope.nvim.
    - Example:
 
@@ -145,7 +136,7 @@ Integration
 Automation
 ----------
 
-8. Recurring Tasks:
+7. Recurring Tasks:
    - Support recurring tasks, automatically resetting them after a certain period.
    - Example:
 
@@ -157,13 +148,13 @@ Automation
 User Experience
 ---------------
 
-9. Interactive Floating Window:
+8. Interactive Floating Window:
     - Provide an interactive floating window to manage tasks visually.
     - Example:
       - Show a list of tasks with actions like "complete," "edit," or "delete."
     - New key mapping: `<Leader>w` to open the task manager window.
 
-10. Progress Bar:
+9. Progress Bar:
     - Display a progress bar in the status line showing the percentage of completed tasks in the file.
     - Example:
 
@@ -171,7 +162,7 @@ User Experience
       Progress: [#####-----] 50%
       ```
 
-11. Undo Changes:
+10. Undo Changes:
     - Allow undoing task state changes for better control.
     - Example:
       - Undo the last change to a task with `<Leader>u`.
@@ -179,5 +170,5 @@ User Experience
 Maintenance
 -----------
 
-12. Unit Tests:
+11. Unit Tests:
     - Add unit tests for all major functions to ensure reliability.
