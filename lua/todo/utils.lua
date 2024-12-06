@@ -75,4 +75,12 @@ function M.edit_task_description()
 	vim.cmd("normal! ^f]a ")
 end
 
+function M.add_subtask()
+	local current_line_number = vim.api.nvim_win_get_cursor(0)[1] - 1
+	local current_line = vim.api.nvim_get_current_line()
+	local indent = string.match(current_line, "^%s*") or ""
+	local subtask = indent .. "    [ ] Subtask"
+	vim.api.nvim_buf_set_lines(0, current_line_number + 1, current_line_number + 1, false, { subtask })
+end
+
 return M

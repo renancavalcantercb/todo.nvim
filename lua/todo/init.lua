@@ -11,6 +11,7 @@ M.reset_task = utils.reset_task
 M.toggle_task_state = utils.toggle_task_state
 M.count_tasks = utils.count_tasks
 M.edit_task_description = utils.edit_task_description
+M.add_subtask = utils.add_subtask
 
 function M.setup()
 	autocommands.register_autocommands(mappings.key_mappings)

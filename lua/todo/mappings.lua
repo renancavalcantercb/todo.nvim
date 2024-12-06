@@ -8,6 +8,7 @@ M.key_mappings = {
 	["<Leader>c"] = "count_tasks",
 	["<Leader>]"] = "edit_task_description",
 	["<Leader>t"] = "toggle_task_state",
+	["<Leader>s"] = "add_subtask",
 }
 
 return M
