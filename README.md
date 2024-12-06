@@ -1,7 +1,7 @@
 todo.nvim - A Simple TODO Management Plugin for Neovim
 -------------------------------------------------------
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
 ![GitHub repo size](https://img.shields.io/github/repo-size/renancavalcantercb/todo.nvim)
 ![GitHub issues](https://img.shields.io/github/issues/renancavalcantercb/todo.nvim)
 
