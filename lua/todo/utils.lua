@@ -1,5 +1,8 @@
 local M = {}
 
+M._original_lines = nil
+M._current_filter = "all"
+
 function M.add_todo_item()
 	vim.api.nvim_put({ "[ ] " }, "c", true, true)
 end
@@ -81,6 +84,85 @@ function M.add_subtask()
 	local indent = string.match(current_line, "^%s*") or ""
 	local subtask = indent .. "    [ ] Subtask"
 	vim.api.nvim_buf_set_lines(0, current_line_number + 1, current_line_number + 1, false, { subtask })
+end
+
+local filters = {
+	all = function(lines)
+		return lines
+	end,
+	pending = function(lines)
+		local result = {}
+		for _, l in ipairs(lines) do
+			if l:match("%[ %]") then
+				table.insert(result, l)
+			end
+		end
+		return result
+	end,
+	in_progress = function(lines)
+		local result = {}
+		for _, l in ipairs(lines) do
+			if l:match("%[%-%]") then
+				table.insert(result, l)
+			end
+		end
+		return result
+	end,
+	completed = function(lines)
+		local result = {}
+		for _, l in ipairs(lines) do
+			if l:match("%[x%]") then
+				table.insert(result, l)
+			end
+		end
+		return result
+	end,
+}
+
+local filter_order = { "all", "pending", "in_progress", "completed" }
+
+local function next_filter(current)
+	for i, f in ipairs(filter_order) do
+		if f == current then
+			return filter_order[(i % #filter_order) + 1]
+		end
+	end
+	return "all"
+end
+
+function M.toggle_filter()
+	local current_buffer = vim.fn.bufnr("%")
+	local current_lines = vim.fn.getbufline(current_buffer, 1, "$")
+
+	if M._current_filter == "all" then
+		M._original_lines = current_lines
+	end
+
+	M._current_filter = next_filter(M._current_filter)
+
+	if M._current_filter == "all" then
+		if M._original_lines then
+			vim.api.nvim_buf_set_lines(current_buffer, 0, -1, false, M._original_lines)
+		end
+		print("Filter: showing all tasks.")
+	else
+		local filtered = filters[M._current_filter](M._original_lines)
+		vim.api.nvim_buf_set_lines(current_buffer, 0, -1, false, filtered)
+		print("Active filter: " .. M._current_filter)
+	end
+end
+
+function M.is_filtered()
+	return M._current_filter ~= "all"
+end
+
+function M.restore_all()
+	local current_buffer = vim.fn.bufnr("%")
+	if M._original_lines then
+		vim.api.nvim_buf_set_lines(current_buffer, 0, -1, false, M._original_lines)
+		M._current_filter = "all"
+		print("Filter cleared: showing all tasks.")
+	end
 end
 
 return M
