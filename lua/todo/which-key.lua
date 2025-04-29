@@ -4,7 +4,6 @@ function M.setup()
     local wk = require("which-key")
     
     wk.add({
-        { "<leader>[", group = "todo" },
         { "<leader>[[", "<cmd>lua require('todo').add_todo_item()<CR>", desc = "Add new task" },
         { "<leader>[x", "<cmd>lua require('todo').check_task()<CR>", desc = "Mark as completed" },
         { "<leader>[-", "<cmd>lua require('todo').mark_in_progress()<CR>", desc = "Mark as in progress" },
