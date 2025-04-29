@@ -3,21 +3,6 @@ local M = {}
 function M.setup()
     local wk = require("which-key")
     
-    -- Configuração para filtrar mapeamentos automáticos
-    wk.setup({
-        plugins = {
-            presets = {
-                operators = false,
-                motions = false,
-                text_objects = false,
-                windows = false,
-                nav = false,
-                z = false,
-                g = false,
-            },
-        },
-    })
-    
     wk.add({
         { "<leader>[", group = "todo" },
         { "<leader>[[", "<cmd>lua require('todo').add_todo_item()<CR>", desc = "Add new task" },
