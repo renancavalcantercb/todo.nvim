@@ -15,6 +15,7 @@ M.add_subtask = utils.add_subtask
 M.toggle_filter = utils.toggle_filter
 M.is_filtered = utils.is_filtered
 M.restore_all = utils.restore_all
+M.sort_tasks = utils.sort_tasks
 
 function M.setup()
 	autocommands.register_autocommands(mappings.key_mappings)

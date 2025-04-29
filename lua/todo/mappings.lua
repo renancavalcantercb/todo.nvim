@@ -10,6 +10,7 @@ M.key_mappings = {
 	["<Leader>t"] = "toggle_task_state",
 	["<Leader>s"] = "add_subtask",
 	["<Leader>f"] = "toggle_filter",
+	["<Leader>o"] = "sort_tasks",
 }
 
 return M

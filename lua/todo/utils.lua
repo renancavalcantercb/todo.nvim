@@ -165,4 +165,63 @@ function M.restore_all()
 	end
 end
 
+function M.sort_tasks()
+	local current_buffer = vim.fn.bufnr("%")
+	local lines = vim.fn.getbufline(current_buffer, 1, "$")
+	
+	-- Helper function to determine task priority
+	local function get_task_priority(line)
+		if line:match("%[ %]") then
+			return 1  -- Pending tasks first
+		elseif line:match("%[%-%]") then
+			return 2  -- In-progress tasks second
+		elseif line:match("%[x%]") then
+			return 3  -- Completed tasks last
+		end
+		return 4  -- Lines without tasks go to the end
+	end
+	
+	-- Sort lines while maintaining subtask indentation
+	local sorted_lines = {}
+	local current_task = nil
+	local current_subtasks = {}
+	
+	for _, line in ipairs(lines) do
+		local indent = string.match(line, "^%s*") or ""
+		local is_subtask = #indent > 0
+		
+		if is_subtask and current_task then
+			table.insert(current_subtasks, line)
+		else
+			if current_task then
+				table.insert(sorted_lines, current_task)
+				for _, subtask in ipairs(current_subtasks) do
+					table.insert(sorted_lines, subtask)
+				end
+				current_subtasks = {}
+			end
+			current_task = line
+		end
+	end
+	
+	-- Add the last task and its subtasks
+	if current_task then
+		table.insert(sorted_lines, current_task)
+		for _, subtask in ipairs(current_subtasks) do
+			table.insert(sorted_lines, subtask)
+		end
+	end
+	
+	-- Sort lines based on priority
+	table.sort(sorted_lines, function(a, b)
+		local priority_a = get_task_priority(a)
+		local priority_b = get_task_priority(b)
+		return priority_a < priority_b
+	end)
+	
+	-- Update buffer with sorted lines
+	vim.api.nvim_buf_set_lines(current_buffer, 0, -1, false, sorted_lines)
+	print("Tasks sorted by status: Pending → In Progress → Completed")
+end
+
 return M
