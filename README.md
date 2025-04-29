@@ -11,14 +11,17 @@ Manage your tasks directly in Neovim with syntax highlighting, dynamic key mappi
 - Add, Check, Reset, and Mark Tasks as "in progress" directly in `.todo` files
 - Toggle Task State with a single key (cycle between `[ ]`, `[-]`, `[x]`)
 - Automatic task sorting by status
+- Deadline support with visual indicators
 - Count Tasks:
   - Total tasks
   - Completed tasks
   - Tasks in progress
 - Syntax Highlighting for task statuses:
-  - `[ ]` for **Pending**
-  - `[x]` for **Completed**
-  - `[-]` for **In Progress**
+  - `[ ]` for **Pending** (grey)
+  - `[x]` for **Completed** (green)
+  - `[-]` for **In Progress** (yellow)
+  - `@YYYY-MM-DD` for **Deadlines** (blue)
+  - Overdue deadlines highlighted in **red**
 - Dynamic Key Mappings for quick and easy task actions
 - Subtask support with proper indentation
 - Task filtering system
@@ -38,6 +41,10 @@ Manage your tasks directly in Neovim with syntax highlighting, dynamic key mappi
 | `<Leader>s`      | Add a subtask under the current task |
 | `<Leader>f`      | Toggle between filtered views (all/pending/in-progress/completed) |
 | `<Leader>o`      | Sort tasks by status (pending → in-progress → completed) |
+| `<Leader>d`      | Add today's date as deadline    |
+| `<Leader>D`      | Remove deadline from task       |
+| `<Leader>l`      | List overdue tasks              |
+| `<Leader>O`      | Sort tasks by deadline          |
 
 ## Installation
 
@@ -60,17 +67,32 @@ Manage your tasks directly in Neovim with syntax highlighting, dynamic key mappi
 2. Use the key mappings to manage tasks
 3. Check the task summary with `<Leader>c`
 4. Sort your tasks with `<Leader>o`
+5. Add deadlines with `<Leader>d`
+6. Check overdue tasks with `<Leader>l`
 
 ### Example TODO File
 
 ```plaintext
-[ ] Pending task 1
-[ ] Pending task 2
-[-] Task in progress
-[x] Completed task
-    [x] Subtask 1
-    [x] Subtask 2
+[ ] Buy groceries @2024-03-20
+[ ] Call mom @2024-03-25
+[-] Write report @2024-03-18
+[x] Pay bills @2024-03-15
+    [x] Electricity
+    [ ] Water
 ```
+
+## Task States
+
+- `[ ]` - Pending task
+- `[-]` - Task in progress
+- `[x]` - Completed task
+
+## Deadline Format
+
+- Use `@YYYY-MM-DD` format for deadlines
+- Example: `[ ] Buy groceries @2024-03-20`
+- Overdue deadlines are highlighted in red
+- Tasks without deadlines go to the end when sorting by deadline
 
 ## Planned Features
 
@@ -80,10 +102,10 @@ Manage your tasks directly in Neovim with syntax highlighting, dynamic key mappi
    - Sort by priority
    - Visual indicators for priority levels
 
-2. Deadlines:
-   - Add deadline support with `@date` syntax
-   - Highlight overdue tasks
-   - Sort by deadline
+2. Tags and Categories:
+   - Add tags with # syntax
+   - Filter by tags
+   - Category-based organization
 
 ### Visual Enhancements
 1. Custom Highlight Groups:
