@@ -3,6 +3,7 @@ local M = {}
 local utils = require("todo.utils")
 local mappings = require("todo.mappings")
 local autocommands = require("todo.autocommands")
+local which_key = require("todo.which-key")
 
 M.add_todo_item = utils.add_todo_item
 M.check_task = utils.check_task
@@ -23,6 +24,7 @@ M.sort_by_deadline = utils.sort_by_deadline
 
 function M.setup()
 	autocommands.register_autocommands(mappings.key_mappings)
+	which_key.setup()
 end
 
 return M
