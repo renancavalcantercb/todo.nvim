@@ -25,7 +25,12 @@ Manage your tasks directly in Neovim with syntax highlighting, dynamic key mappi
 - Dynamic Key Mappings for quick and easy task actions
 - Subtask support with proper indentation
 - Task filtering system
+- Beautiful which-key integration for key mappings
 - Modular and maintainable codebase, perfect for contributors
+
+## Dependencies
+
+- [which-key.nvim](https://github.com/folke/which-key.nvim) - For beautiful key mapping menus
 
 ## Key Mappings
 
@@ -53,6 +58,9 @@ Manage your tasks directly in Neovim with syntax highlighting, dynamic key mappi
 ```lua
 {
   "renancavalcantercb/todo.nvim",
+  dependencies = {
+    "folke/which-key.nvim",
+  },
   config = function()
     require("todo").setup()
   end,
@@ -69,6 +77,27 @@ Manage your tasks directly in Neovim with syntax highlighting, dynamic key mappi
 4. Sort your tasks with `<Leader>o`
 5. Add deadlines with `<Leader>d`
 6. Check overdue tasks with `<Leader>l`
+
+### Which-Key Integration
+
+When you press `<Leader>[`, you'll see a beautiful menu with all available todo commands:
+
+```plaintext
+todo
+  [[  Add new task
+  [x  Mark as completed
+  [-  Mark as in progress
+  []] Edit description
+  [c  Count tasks
+  [t  Toggle task state
+  [s  Add subtask
+  [f  Toggle filter
+  [o  Sort by status
+  [d  Add deadline
+  [D  Remove deadline
+  [l  List overdue tasks
+  [O  Sort by deadline
+```
 
 ### Example TODO File
 
