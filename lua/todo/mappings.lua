@@ -11,6 +11,10 @@ M.key_mappings = {
 	["<Leader>s"] = "add_subtask",
 	["<Leader>f"] = "toggle_filter",
 	["<Leader>o"] = "sort_tasks",
+	["<Leader>d"] = "add_deadline",
+	["<Leader>D"] = "remove_deadline",
+	["<Leader>l"] = "check_overdue_tasks",
+	["<Leader>O"] = "sort_by_deadline",
 }
 
 return M

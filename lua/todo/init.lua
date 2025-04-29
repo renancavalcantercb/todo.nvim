@@ -16,6 +16,10 @@ M.toggle_filter = utils.toggle_filter
 M.is_filtered = utils.is_filtered
 M.restore_all = utils.restore_all
 M.sort_tasks = utils.sort_tasks
+M.add_deadline = utils.add_deadline
+M.remove_deadline = utils.remove_deadline
+M.check_overdue_tasks = utils.check_overdue_tasks
+M.sort_by_deadline = utils.sort_by_deadline
 
 function M.setup()
 	autocommands.register_autocommands(mappings.key_mappings)

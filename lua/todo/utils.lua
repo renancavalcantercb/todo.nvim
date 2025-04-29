@@ -224,4 +224,109 @@ function M.sort_tasks()
 	print("Tasks sorted by status: Pending → In Progress → Completed")
 end
 
+function M.add_deadline()
+	local line = vim.fn.getline(".")
+	if not line:match("%[.?.?%]") then
+		print("No valid task found on this line.")
+		return
+	end
+	
+	-- Get current date in YYYY-MM-DD format
+	local date = os.date("%Y-%m-%d")
+	local new_line = line:gsub("(@%d{4}-%d{2}-%d{2})?", "@" .. date)
+	vim.fn.setline(".", new_line)
+	print("Deadline added: " .. date)
+end
+
+function M.remove_deadline()
+	local line = vim.fn.getline(".")
+	if not line:match("@%d{4}-%d{2}-%d{2}") then
+		print("No deadline found on this line.")
+		return
+	end
+	
+	local new_line = line:gsub(" @%d{4}-%d{2}-%d{2}", "")
+	vim.fn.setline(".", new_line)
+	print("Deadline removed.")
+end
+
+function M.check_overdue_tasks()
+	local current_date = os.time()
+	local lines = vim.fn.getbufline(vim.fn.bufnr("%"), 1, "$")
+	local overdue_count = 0
+	
+	for _, line in ipairs(lines) do
+		local deadline = line:match("@(%d{4}-%d{2}-%d{2})")
+		if deadline then
+			local year, month, day = deadline:match("(%d{4})-(%d{2})-(%d{2})")
+			local task_date = os.time({year = tonumber(year), month = tonumber(month), day = tonumber(day)})
+			
+			if task_date < current_date and not line:match("%[x%]") then
+				overdue_count = overdue_count + 1
+			end
+		end
+	end
+	
+	if overdue_count > 0 then
+		print(string.format("Found %d overdue task(s).", overdue_count))
+	else
+		print("No overdue tasks found.")
+	end
+end
+
+function M.sort_by_deadline()
+	local current_buffer = vim.fn.bufnr("%")
+	local lines = vim.fn.getbufline(current_buffer, 1, "$")
+	
+	-- Helper function to extract deadline from a line
+	local function get_deadline(line)
+		local deadline = line:match("@(%d{4}-%d{2}-%d{2})")
+		if deadline then
+			local year, month, day = deadline:match("(%d{4})-(%d{2})-(%d{2})")
+			return os.time({year = tonumber(year), month = tonumber(month), day = tonumber(day)})
+		end
+		return math.huge -- Tasks without deadline go to the end
+	end
+	
+	-- Sort lines while maintaining subtask indentation
+	local sorted_lines = {}
+	local current_task = nil
+	local current_subtasks = {}
+	
+	for _, line in ipairs(lines) do
+		local indent = string.match(line, "^%s*") or ""
+		local is_subtask = #indent > 0
+		
+		if is_subtask and current_task then
+			table.insert(current_subtasks, line)
+		else
+			if current_task then
+				table.insert(sorted_lines, current_task)
+				for _, subtask in ipairs(current_subtasks) do
+					table.insert(sorted_lines, subtask)
+				end
+				current_subtasks = {}
+			end
+			current_task = line
+		end
+	end
+	
+	-- Add the last task and its subtasks
+	if current_task then
+		table.insert(sorted_lines, current_task)
+		for _, subtask in ipairs(current_subtasks) do
+			table.insert(sorted_lines, subtask)
+		end
+	end
+	
+	-- Sort lines based on deadline
+	table.sort(sorted_lines, function(a, b)
+		return get_deadline(a) < get_deadline(b)
+	end)
+	
+	-- Update buffer with sorted lines
+	vim.api.nvim_buf_set_lines(current_buffer, 0, -1, false, sorted_lines)
+	print("Tasks sorted by deadline.")
+end
+
 return M
